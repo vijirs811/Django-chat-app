@@ -1,0 +1,85 @@
+<!--<form method="post">
+	{% csrf_token %}
+	<form action="/your-name/" method="post">
+	<label for="your_name">Your name: </label>
+	<input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+	<button type="submit">Submit</button>
+</form>-->
+<!DOCTYPE html>
+<html> 
+<title>Chat App</title>
+
+<style>
+
+ div{ 
+  width: 300px;
+  border: 5px solid white;
+  border-radius: 25px 50px;
+  padding: 100px;
+  margin: 10px;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+p {
+	font-size:20px;
+}
+h2 {
+	margin-top: 5px;
+	
+}
+button {
+		border: none;
+		border-radius: 20px 20px 20px 20px;
+		color: solid #ccc ;
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+	}
+</style>
+<body bgcolor="#B7E6FD"><center>
+	<form method ="post">
+		{% csrf_token %}
+		<!--{{form.as_p}}-->
+		
+		<div>
+			<h2>LOGIN</h2>
+		<p class="user">
+			<label for="id_username">Username</label>
+			<input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+			
+			
+		</p>
+	
+		
+		<p class="pwd">
+			<label for="id_password">Password</label>
+			<input type="password" name="password" autocomplete="current-password" required="" id="id_password">
+			
+			
+				
+			
+		</p>
+			
+		
+		<button type = "submit">Login</button>
+
+	</form>
+
+</center>
+</div>
+</body>
+</html>
+
+

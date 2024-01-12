@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style>
+		
+		input[type=text] {
+  width: 25%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.btn1 {
+		border: none;
+		border-radius: 20px 20px 20px 20px;
+		color: blueviolet;
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+	}
+	</style>
+<body bgcolor="#fcf3e1">
+
+	<center><h1>Hello , Welcome to Chat Application ! </h1></center>
+	<br>
+	{% if request.user.is_authenticated %}
+	<div style="text-align:right; padding-right: 100px;" ><a href = "{% url 'login-user' %}"><button class="btn1">Logout</button></a></div>
+	{% endif %}
+	<div
+	class="chat__item__container"
+	id="id_chat_item_container"
+	style="font-size: 20px;
+	text-align:center"
+	>
+	<br />
+	<center>
+	<h3>{{request.user}}</h3>
+	
+	
+	<input type="text" id="id_message_send_input" placeholder="Type a Message" data-required data-error-message="Type a message"/>
+	<button type="submit" id="id_message_send_button" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-send"> SendMessage</span></a></button>
+	<br />
+	<br />
+	</div>
+</center>
+	<script>
+	const chatSocket = new WebSocket("ws://" + window.location.host + "/");
+	chatSocket.onopen = function (e) {
+		console.log("The connection was setup successfully !");
+	};
+	chatSocket.onclose = function (e) {
+		console.log("Something unexpected happened !");
+	};
+	document.querySelector("#id_message_send_input").focus();
+	document.querySelector("#id_message_send_input").onkeyup = function (e) {
+		if (e.keyCode == 13) {
+		document.querySelector("#id_message_send_button").click();
+		}
+	};
+	document.querySelector("#id_message_send_button").onclick = function (e) {
+		var messageInput = document.querySelector(
+		"#id_message_send_input"
+		).value;
+		chatSocket.send(JSON.stringify({ message: messageInput, username : "{{request.user.username}}"}));
+	};
+	chatSocket.onmessage = function (e) {
+		const data = JSON.parse(e.data);
+		var div = document.createElement("div");
+		div.innerHTML = data.username + " : " + data.message;
+		document.querySelector("#id_message_send_input").value = "";
+		document.querySelector("#id_chat_item_container").appendChild(div);
+	};
+	</script>
+</body>
+</html>
