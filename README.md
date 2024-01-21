@@ -1,5 +1,5 @@
 # Django-chat-app
-  A chat application built using django framework. Users can able to send messages via chat rooms. The user want to login by entering valid username and password. 
+  A chat application built using django framework. Users can able to send messages through chat rooms. The user want to login by entering valid username and password. 
 ## Quick Start
   Create Virtual Environment
   ```
